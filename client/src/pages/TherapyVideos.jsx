@@ -13,7 +13,7 @@ const TherapyVideos = () => {
 
     const fetchVideos = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/videos');
+            const res = await axios.get('/api/videos');
             setVideos(res.data);
         } catch (err) {
             console.error(err);
@@ -23,7 +23,7 @@ const TherapyVideos = () => {
     const handleAddVideo = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/videos', formData);
+            await axios.post('/api/videos', formData);
             setFormData({ title: '', url: '', category: 'General' });
             fetchVideos();
         } catch (err) {
@@ -34,7 +34,7 @@ const TherapyVideos = () => {
     const handleDeleteVideo = async (id) => {
         if (window.confirm('Are you sure you want to delete this resource?')) {
             try {
-                await axios.delete(`http://localhost:5000/api/videos/${id}`);
+                await axios.delete(`/api/videos/${id}`);
                 fetchVideos();
             } catch (err) {
                 console.error(err);

@@ -21,7 +21,7 @@ const Shop = () => {
 
     const fetchProducts = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/shop/products');
+            const res = await axios.get('/api/shop/products');
             setProducts(res.data);
         } catch (err) {
             console.error(err);
@@ -48,7 +48,7 @@ const Shop = () => {
     const handleDeleteProduct = async (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
             try {
-                await axios.delete(`http://localhost:5000/api/shop/products/${id}`);
+                await axios.delete(`/api/shop/products/${id}`);
                 fetchProducts();
             } catch (err) {
                 console.error(err);
@@ -69,7 +69,7 @@ const Shop = () => {
                 formData.append('image', imageFile);
             }
 
-            await axios.post('http://localhost:5000/api/shop/products', formData, {
+            await axios.post('/api/shop/products', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
