@@ -23,4 +23,15 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Delete Video (Admin/Mentor)
+router.delete('/:id', async (req, res) => {
+    try {
+        await Video.findByIdAndDelete(req.params.id);
+        res.json({ msg: 'Video deleted' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;

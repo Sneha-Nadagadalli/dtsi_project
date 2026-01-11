@@ -31,6 +31,17 @@ const TherapyVideos = () => {
         }
     };
 
+    const handleDeleteVideo = async (id) => {
+        if (window.confirm('Are you sure you want to delete this resource?')) {
+            try {
+                await axios.delete(`http://localhost:5000/api/videos/${id}`);
+                fetchVideos();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    };
+
     const getYouTubeEmbedUrl = (url) => {
         if (!url) return '';
         let videoId = '';
@@ -93,7 +104,24 @@ const TherapyVideos = () => {
                                 ></iframe>
                             </div>
                             <h3>{video.title}</h3>
-                            <p>{video.category}</p>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <p style={{ margin: 0 }}>{video.category}</p>
+                                {role === 'mentor' && (
+                                    <button
+                                        onClick={() => handleDeleteVideo(video._id)}
+                                        style={{
+                                            background: 'none',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            fontSize: '1.2rem',
+                                            color: '#4a90e2'
+                                        }}
+                                        title="Delete Resource"
+                                    >
+                                        🗑️
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     ))
                 )}
