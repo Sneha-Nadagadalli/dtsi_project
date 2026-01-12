@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Home = () => {
@@ -238,7 +239,7 @@ const Home = () => {
                 <p style={{ maxWidth: '600px', margin: '1rem auto' }}>
                     We are always looking for volunteers, donors, and passionate educators to join the Usha Public School family.
                 </p>
-                <a href="/join-us" className="btn btn-primary">Get Involved</a>
+                <Link to="/join-us" className="btn btn-primary">Get Involved</Link>
             </section>
 
             {/* Contact Section */}
