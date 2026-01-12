@@ -29,7 +29,7 @@ const Home = () => {
 
     const fetchHomeContent = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/home-content');
+            const res = await axios.get('/api/home-content');
             setContent(res.data);
             setEditForm(res.data);
         } catch (err) {
@@ -39,7 +39,7 @@ const Home = () => {
 
     const handleSaveContent = async () => {
         try {
-            await axios.put('http://localhost:5000/api/home-content', editForm);
+            await axios.put('/api/home-content', editForm);
             setContent(editForm);
             setIsEditingContent(false);
             alert('Home content updated successfully!');
@@ -51,7 +51,7 @@ const Home = () => {
 
     const fetchWorkshops = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/workshops');
+            const res = await axios.get('/api/workshops');
             setWorkshops(res.data);
         } catch (err) {
             console.error(err);
@@ -62,9 +62,9 @@ const Home = () => {
         e.preventDefault();
         try {
             if (editingId) {
-                await axios.put(`http://localhost:5000/api/workshops/${editingId}`, newWorkshop);
+                await axios.put(`/api/workshops/${editingId}`, newWorkshop);
             } else {
-                await axios.post('http://localhost:5000/api/workshops', newWorkshop);
+                await axios.post('/api/workshops', newWorkshop);
             }
             cancelEditing();
             fetchWorkshops();
@@ -76,7 +76,7 @@ const Home = () => {
     const handleDeleteWorkshop = async (id) => {
         if (window.confirm('Are you sure you want to delete this workshop?')) {
             try {
-                await axios.delete(`http://localhost:5000/api/workshops/${id}`);
+                await axios.delete(`/api/workshops/${id}`);
                 fetchWorkshops();
             } catch (err) {
                 console.error(err);

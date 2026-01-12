@@ -40,7 +40,7 @@ const StudentDetail = ({ student, onBack }) => {
 
     const fetchTasks = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/dashboard/tasks/${student._id}`);
+            const res = await axios.get(`/api/dashboard/tasks/${student._id}`);
             setTasks(res.data);
             calculateChartData(res.data);
         } catch (err) {
@@ -77,7 +77,7 @@ const StudentDetail = ({ student, onBack }) => {
         e.preventDefault();
         try {
             const dateInput = document.getElementById('taskDueDate');
-            await axios.post('http://localhost:5000/api/dashboard/tasks', {
+            await axios.post('/api/dashboard/tasks', {
                 title: newTask,
                 student: student._id,
                 dueDate: dateInput ? dateInput.value : null
@@ -92,7 +92,7 @@ const StudentDetail = ({ student, onBack }) => {
 
     const updateTask = async (task, updates) => {
         try {
-            await axios.put(`http://localhost:5000/api/dashboard/tasks/${task._id}`, updates);
+            await axios.put(`/api/dashboard/tasks/${task._id}`, updates);
             fetchTasks();
         } catch (err) {
             console.error(err);
@@ -101,7 +101,7 @@ const StudentDetail = ({ student, onBack }) => {
 
     const handleUpdateName = async () => {
         try {
-            await axios.put(`http://localhost:5000/api/dashboard/students/${student._id}`, { name: editedName });
+            await axios.put(`/api/dashboard/students/${student._id}`, { name: editedName });
             student.name = editedName; // Optimistic update
             setIsEditingName(false);
         } catch (err) {
@@ -210,7 +210,7 @@ const StudentDetail = ({ student, onBack }) => {
                                 defaultValue={student.conditionDescription || ''}
                                 onBlur={async (e) => {
                                     try {
-                                        await axios.put(`http://localhost:5000/api/dashboard/students/${student._id}`, { conditionDescription: e.target.value });
+                                        await axios.put(`/api/dashboard/students/${student._id}`, { conditionDescription: e.target.value });
                                     } catch (err) {
                                         console.error(err);
                                     }
@@ -235,7 +235,7 @@ const StudentDetail = ({ student, onBack }) => {
                                                 onClick={async () => {
                                                     if (window.confirm('Delete this record?')) {
                                                         try {
-                                                            await axios.delete(`http://localhost:5000/api/dashboard/students/${student._id}/medical-records/${record._id}`);
+                                                            await axios.delete(`/api/dashboard/students/${student._id}/medical-records/${record._id}`);
                                                             // Ideally trigger a re-fetch here, but for now user might need to refresh or we add parent callback
                                                             window.location.reload();
                                                         } catch (err) { console.error(err); }
@@ -264,7 +264,7 @@ const StudentDetail = ({ student, onBack }) => {
                                         const formData = new FormData();
                                         formData.append('file', file);
                                         try {
-                                            await axios.post(`http://localhost:5000/api/dashboard/students/${student._id}/medical-records`, formData, {
+                                            await axios.post(`/api/dashboard/students/${student._id}/medical-records`, formData, {
                                                 headers: { 'Content-Type': 'multipart/form-data' }
                                             });
                                             window.location.reload(); // Refresh to show new file

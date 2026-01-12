@@ -22,7 +22,7 @@ const Blogs = () => {
 
     const fetchBlogs = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/blog');
+            const res = await axios.get('/api/blog');
             setBlogs(res.data);
         } catch (err) {
             console.error(err);
@@ -49,7 +49,7 @@ const Blogs = () => {
     const handleDeleteBlog = async (id) => {
         if (window.confirm('Are you sure you want to delete this blog?')) {
             try {
-                await axios.delete(`http://localhost:5000/api/blog/${id}`);
+                await axios.delete(`/api/blog/${id}`);
                 fetchBlogs();
             } catch (err) {
                 console.error(err);
@@ -88,11 +88,11 @@ const Blogs = () => {
             }
 
             if (editingId) {
-                await axios.put(`http://localhost:5000/api/blog/${editingId}`, formData, {
+                await axios.put(`/api/blog/${editingId}`, formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
             } else {
-                await axios.post('http://localhost:5000/api/blog', formData, {
+                await axios.post('/api/blog', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
             }

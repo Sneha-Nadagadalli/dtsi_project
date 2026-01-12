@@ -32,7 +32,7 @@ const Dashboard = () => {
 
     const fetchMyChild = async (studentId) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/dashboard/student/my-child/${studentId}`);
+            const res = await axios.get(`/api/dashboard/student/my-child/${studentId}`);
             setSelectedStudent(res.data);
         } catch (err) {
             console.error(err);
@@ -41,7 +41,7 @@ const Dashboard = () => {
 
     const fetchStudents = async (mentorId) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/dashboard/my-students/${mentorId}`);
+            const res = await axios.get(`/api/dashboard/my-students/${mentorId}`);
             setStudents(res.data);
         } catch (err) {
             console.error(err);
@@ -52,7 +52,7 @@ const Dashboard = () => {
         e.preventDefault();
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            const res = await axios.post('http://localhost:5000/api/dashboard/students', {
+            const res = await axios.post('/api/dashboard/students', {
                 name: newStudentName,
                 mentor: user.id
             });
@@ -73,7 +73,7 @@ const Dashboard = () => {
     const handleDeleteStudent = async (studentId) => {
         if (window.confirm('Are you sure you want to delete this student profile? This action cannot be undone.')) {
             try {
-                await axios.delete(`http://localhost:5000/api/dashboard/students/${studentId}`);
+                await axios.delete(`/api/dashboard/students/${studentId}`);
                 const user = JSON.parse(localStorage.getItem('user'));
                 fetchStudents(user.id);
             } catch (err) {
@@ -90,7 +90,7 @@ const Dashboard = () => {
         e.preventDefault();
         setSearchError('');
         try {
-            const res = await axios.post('http://localhost:5000/api/dashboard/student/search', { name: parentSearchName });
+            const res = await axios.post('/api/dashboard/student/search', { name: parentSearchName });
             setSelectedStudent(res.data);
             setParentSearchName('');
         } catch (err) {
